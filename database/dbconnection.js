@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 const uri = process.env.mongoDB_cred;
 const client = new MongoClient(uri);
-const Bill = client.db("bill");
+const BillDB = client.db("bill");
 const bills = Bill.collection("bills");
 
 const dbConnected = () => {
@@ -19,4 +19,4 @@ const dbConnected = () => {
 };
 
 exports.dbConnected = dbConnected;
-exports.db = { Bill, bills };
+exports.db = { BillDB, bills };
