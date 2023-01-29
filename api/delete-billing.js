@@ -1,12 +1,14 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 const router = express.Router();
-const { bills } = require("../database/dbconnection");
-router.delete("api", async (req, res) => {
+const { db } = require("../database/dbconnection");
+router.delete("/api/delete-billing/:id", async (req, res) => {
   // codes will be here
-  const id = req.id;
-  const result = await bills.deleteOne({ id: ObjectId(id) });
-  if (result.deletedCount < 0) {
+  const id = req.params.id;
+  const filter = { _id: ObjectId(id) };
+  console.log(id);
+  const result = await db.bills.deleteOne(filter);
+  if (result.deletedCount > 0) {
     return res.send({ status: true, message: "Operation successful" });
   }
   return res.send({ status: false, message: "Operation failed" });

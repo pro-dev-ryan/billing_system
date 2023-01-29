@@ -21,12 +21,12 @@ app.get("/", (req, res) => {
 });
 
 // routes
-app.get("api/billing-list", showBill);
-app.post("api/add-billing", addBill);
-app.put("api/update-billing/:id", updateBill);
-app.delete("api/delete-billing/:id", deleteBill);
-app.get("api/login", login);
-app.put("api/registration", signUp);
+app.get("/api/billing-list", showBill);
+app.post("/api/add-billing", addBill);
+app.put("/api/update-billing/:id", updateBill);
+app.delete("/api/delete-billing/:id", deleteBill);
+app.get("/api/login", login);
+app.put("/api/registration", signUp);
 
 app.listen(PORT, () => {
   dbConnected();

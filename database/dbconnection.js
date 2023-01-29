@@ -2,7 +2,7 @@ const { MongoClient } = require("mongodb");
 const uri = process.env.mongoDB_cred;
 const client = new MongoClient(uri);
 const BillDB = client.db("bill");
-const bills = Bill.collection("bills");
+const bills = BillDB.collection("bills");
 
 const dbConnected = () => {
   try {

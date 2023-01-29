@@ -1,16 +1,21 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const router = express.Router();
-const { bills } = require("../database/dbconnection");
-router.put("api", async (req, res) => {
+const { db } = require("../database/dbconnection");
+router.put("/api/update-billing/:id", async (req, res) => {
   // codes will be here
-  const id = req.id;
+  const id = req.params.id;
   const modifiedData = req.body;
-  const result = await bills.updateOne(
-    { id: ObjectId(id) },
+  const result = await db.bills.updateOne(
+    { _id: ObjectId(id) },
     { $set: modifiedData },
     { upsert: true }
   );
-  if (result.modifiedCount > 0 || result.upsertCount > 0) {
+  if (
+    result.acknowledged ||
+    result.modifiedCount > 0 ||
+    result.upsertedCount > 0
+  ) {
     return res.send({ status: true, message: "Operation successful" });
   }
   return res.send({ status: false, message: "Operation failed" });
